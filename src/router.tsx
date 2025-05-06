@@ -2,6 +2,7 @@ import {createBrowserRouter} from 'react-router-dom'
 import { Layout } from './layouts/Layout'
 import { ExploreGods } from './pages/ExploreGods'
 import { CreateGod } from './pages/CreateGod'
+import { loader as getAllGods } from './pages/ExploreGods'
 
 export const router = createBrowserRouter([
     {
@@ -10,7 +11,8 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <ExploreGods/>
+                element: <ExploreGods/>,
+                loader: getAllGods
             },
             {
                 path: "gods/create",
