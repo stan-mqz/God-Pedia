@@ -4,32 +4,28 @@ import { SearchGodForm } from "../components/SearchGodForm";
 import { getAllGods } from "../services/GodService";
 import { God } from "../types/types";
 
-
-
 export const loader = async () => {
+  const gods = await getAllGods();
 
-  const gods = await getAllGods()
-
-  return gods
-}
+  return gods;
+};
 
 export const ExploreGods = () => {
-
-  
-
-  const gods = useLoaderData() as God[]
-
+  const gods = useLoaderData() as God[];
 
   return (
-
     <>
       <SearchGodForm />
 
-      <h2 className="text-center text-white text-3xl mt-16">
+      <h2 className="text-center text-white text-3xl my-16">
         Explore All Gods
       </h2>
 
-      <GodCard />
+      <div className="grid grid-cols-3 gap-10 w-[90%] mx-auto">
+        {gods.map((god) => (
+          <GodCard key={god._id} god={god} />
+        ))}
+      </div>
     </>
   );
 };
