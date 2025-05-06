@@ -6,7 +6,7 @@ export const Layout = () => {
       <nav className="flex  justify-between items-center px-5 py-2 border border-b-white">
         <Link to="/" className="flex items-center gap-3 ">
           <div>
-            <img className="w-[70px]" src="./src/public/logo.png" alt="Logo" />
+            <img className="w-[70px]" src="/logo.png" alt="Logo" />
           </div>
           <h1 className="text-scarlet-red text-4xl ">GodPedia</h1>
         </Link>

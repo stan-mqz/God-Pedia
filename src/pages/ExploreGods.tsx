@@ -1,10 +1,13 @@
+import { useLoaderData } from "react-router-dom";
 import { GodCard } from "../components/GodCard";
 import { SearchGodForm } from "../components/SearchGodForm";
 import { getAllGods } from "../services/GodService";
+import { God } from "../types/types";
 
 
 
 export const loader = async () => {
+
   const gods = await getAllGods()
 
   return gods
@@ -13,6 +16,9 @@ export const loader = async () => {
 export const ExploreGods = () => {
 
   
+
+  const gods = useLoaderData() as God[]
+
 
   return (
 
