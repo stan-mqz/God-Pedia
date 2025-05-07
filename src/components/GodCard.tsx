@@ -17,8 +17,6 @@ export const GodCard = ({ god }: GodCardProps) => {
     
   
 
-  console.log(Object.entries(stats))
-
   return (
     <div className="border border-gold cursor-pointer">
       <div className="p-4 border border-b-gold">
@@ -31,9 +29,8 @@ export const GodCard = ({ god }: GodCardProps) => {
         </div>
 
         <div>
-          {/* Fix: Translate text to English */}
           <div className="px-8 pb-4">
-            <p className="text-white">{god.description}</p>
+            <p className="text-white border-b border-gold p-2">{god.description}</p>
 
             <ul className="text-center mt-5">
               {
@@ -41,7 +38,7 @@ export const GodCard = ({ god }: GodCardProps) => {
               (
                 [name, value]
               ) => (
-                <li className="flex justify-center gap-4">
+                <li className="flex justify-center gap-4" key={name}>
                   <span className="text-white">{name}:</span>
                   <span className="text-scarlet-red">{value}</span>
                 </li>
