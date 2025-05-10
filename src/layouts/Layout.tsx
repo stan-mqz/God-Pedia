@@ -13,7 +13,7 @@ export const Layout = () => {
 
         <div className="flex gap-10">
           <Link to="/" className="text-scarlet-red text-4xl ">Home</Link>
-          <Link to="gods/create" className="text-scarlet-red text-4xl ">Create God</Link>
+          <Link to="gods/create" className="text-scarlet-red text-4xl ">Crear Dios</Link>
         </div>
       </nav>
     </header>

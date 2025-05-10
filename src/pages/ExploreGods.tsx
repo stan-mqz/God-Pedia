@@ -18,7 +18,7 @@ export const ExploreGods = () => {
       <SearchGodForm />
 
       <h2 className="text-center text-white text-3xl my-16">
-        Explore All Gods
+        Explorar Todos los Dioses
       </h2>
 
       <div className="grid grid-cols-3 gap-10 w-[90%] mx-auto">

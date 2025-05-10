@@ -8,10 +8,10 @@ export const GodCard = ({ god }: GodCardProps) => {
 
 
   const stats = {
-    Attack: god.attack,
-    Defense: god.defense,
-    Speed: god.speed,
-    Health: god.health,
+    Ataque: god.attack,
+    Defensa: god.defense,
+    Velocidad: god.speed,
+    Salud: god.health,
     Mana: god.mana,
   }
     
