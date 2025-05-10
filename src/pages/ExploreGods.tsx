@@ -11,6 +11,7 @@ export const loader = async () => {
 };
 
 export const ExploreGods = () => {
+  
   const gods = useLoaderData() as God[];
 
   return (
