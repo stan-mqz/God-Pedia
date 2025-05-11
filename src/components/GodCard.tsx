@@ -15,7 +15,6 @@ export const GodCard = ({ god }: GodCardProps) => {
     Mana: god.mana,
   };
 
-  const modal = useGodStore((state) => state.modal);
   const openModal = useGodStore((state) => state.openModal);
 
   return (
@@ -49,9 +48,10 @@ export const GodCard = ({ god }: GodCardProps) => {
         </div>
       </div>
 
-      <GodModal
-      god={god}
-      />
+        <GodModal
+        god={god}
+        />
+
 
     </>
   );
