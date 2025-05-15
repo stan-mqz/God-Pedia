@@ -1,19 +1,13 @@
 import { useGodStore } from "../store";
 import { God } from "../types/types";
 import { GodModal } from "./GodModal";
+import { GodStats } from "./GodStats";
 
 type GodCardProps = {
   god: God;
 };
 
 export const GodCard = ({ god }: GodCardProps) => {
-  const stats = {
-    Ataque: god.attack,
-    Defensa: god.defense,
-    Velocidad: god.speed,
-    Salud: god.health,
-    Mana: god.mana,
-  };
 
   const openModal = useGodStore((state) => state.openModal);
 
@@ -35,24 +29,24 @@ export const GodCard = ({ god }: GodCardProps) => {
                 {god.description}
               </p>
 
-              <ul className="text-center mt-5">
-                {Object.entries(stats).map(([name, value]) => (
-                  <li className="flex justify-center gap-4" key={name}>
-                    <span className="text-white">{name}:</span>
-                    <span className="text-scarlet-red">{value}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-2">
+                <GodStats stat="Ataque" value={god.attack} />
+
+                <GodStats stat="Defensa" value={god.defense} />
+
+                <GodStats stat="Velocidad" value={god.speed} />
+
+                <GodStats stat="Salud" value={god.health} />
+
+                <GodStats stat="Mana" value={god.mana} />
+              </div>
+              
             </div>
           </div>
         </div>
       </div>
 
-        <GodModal
-        god={god}
-        />
-
-
+      <GodModal god={god} />
     </>
   );
 };

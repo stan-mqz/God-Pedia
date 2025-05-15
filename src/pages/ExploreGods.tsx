@@ -3,7 +3,6 @@ import { GodCard } from "../components/GodCard";
 import { SearchGodForm } from "../components/SearchGodForm";
 import { getAllGods } from "../services/GodService";
 import { God } from "../types/types";
-import { GodModal } from "../components/GodModal";
 
 export const loader = async () => {
   const gods = await getAllGods();
@@ -12,6 +11,7 @@ export const loader = async () => {
 };
 
 export const ExploreGods = () => {
+  
   const gods = useLoaderData() as God[];
 
   return (

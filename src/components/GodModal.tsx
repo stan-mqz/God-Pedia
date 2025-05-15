@@ -2,12 +2,14 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useGodStore } from "../store";
 import { God } from "../types/types";
 import { Fragment } from "react";
+import { GodStats } from "./GodStats";
 
 type GodModalProps = {
   god: God;
 };
 
 export const GodModal = ({ god }: GodModalProps) => {
+  // Access modal visibility state and closeModal function from store
   const modal = useGodStore((state) => state.modal);
   const closeModal = useGodStore((state) => state.closeModal);
 
@@ -26,9 +28,11 @@ export const GodModal = ({ god }: GodModalProps) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
+          {/* Background overlay with blur */}
           <div className="fixed inset-0 backdrop-blur-sm"></div>
         </Transition.Child>
 
+        {/* Modal position and scrolling behavior */}
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Transition.Child
@@ -40,7 +44,9 @@ export const GodModal = ({ god }: GodModalProps) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
+              {/* Modal content panel */}
               <Dialog.Panel className="w-[60%] max-h-[600px] transform overflow-hidden rounded-2xl bg-background-primary p-6 text-left align-middle shadow-xl transition-all border border-gold">
+                {/* Modal title */}
                 <Dialog.Title
                   as="div"
                   className="p-7 text-center border-b border-gold"
@@ -48,20 +54,35 @@ export const GodModal = ({ god }: GodModalProps) => {
                   <h3 className="text-scarlet-red text-4xl">{god.name}</h3>
                 </Dialog.Title>
 
+                {/* Modal content: image and information */}
                 <div className="flex justify-center my-2">
+                  {/* Image container */}
                   <div className="w-3xs h-full">
                     <img className="w-full" src={god.image} alt="God Image" />
                   </div>
 
+                  {/* Text and stats container */}
                   <div className="w-full text-center">
+                    {/* God stats section */}
                     <div>
-                      <h2 className="text-scarlet-red">Stats</h2>
+                      <h2 className="text-scarlet-red text-2xl">Stats</h2>
+
+                      <div className="flex gap-3 justify-center px-4">
+                        {/* Individual stats displayed using GodStats component */}
+                        <GodStats stat="Ataque" value={god.attack} />
+                        <GodStats stat="Defensa" value={god.defense} />
+                        <GodStats stat="Velocidad" value={god.speed} />
+                        <GodStats stat="Salud" value={god.health} />
+                        <GodStats stat="Mana" value={god.mana} />
+                      </div>
                     </div>
 
+                    {/* Abilities section (to be implemented) */}
                     <div>
                       <h2 className="text-scarlet-red">Abilities</h2>
                     </div>
 
+                    {/* Items section (to be implemented) */}
                     <div>
                       <h2 className="text-scarlet-red">Items</h2>
                     </div>
