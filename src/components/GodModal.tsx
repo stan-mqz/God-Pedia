@@ -3,39 +3,45 @@ import { useGodStore } from "../store";
 import { God } from "../types/types";
 import { Fragment } from "react";
 import { GodStats } from "./GodStats";
-import { GodAbilities } from "./GodAbilities";
+import { GodAttributes } from "./GodAttributes";
 
 type GodModalProps = {
   god: God;
 };
 
+// This component displays a modal with detailed information about a selected god.
+// It includes the god's name, image, stats, abilities, and items.
+// The modal uses Headless UI's Transition and Dialog components for accessibility and animations.
+// The modal visibility is controlled via global state managed by Zustand (useGodStore).
 export const GodModal = ({ god }: GodModalProps) => {
-  // Access modal visibility state and closeModal function from store
+  // Get the modal open/close state from the global store
   const modal = useGodStore((state) => state.modal);
+  // Get the function to close the modal from the global store
   const closeModal = useGodStore((state) => state.closeModal);
 
   return (
-    // Apply transition to animate the entire modal when it appears/disappears
+    // Transition component handles enter/exit animations for the modal
     <Transition appear show={modal} as={Fragment}>
-      {/* Main modal container */}
+      {/* Dialog component provides accessible modal container */}
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
-        {/* Apply transition to the blurred background overlay */}
+        {/* Background overlay with fade-in/out transition */}
         <Transition.Child
           as={Fragment}
-          enter="ease-out duration-300"
+          enter="ease-out duration-300"   // Animation when modal appears
           enterFrom="opacity-0"
           enterTo="opacity-100"
-          leave="ease-in duration-200"
+          leave="ease-in duration-200"    // Animation when modal disappears
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          {/* Background overlay with blur */}
+          {/* Fixed full-screen overlay with blur effect */}
           <div className="fixed inset-0 backdrop-blur-sm"></div>
         </Transition.Child>
 
-        {/* Modal position and scrolling behavior */}
-        <div className="fixed inset-0 overflow-y-auto">
+        {/* Container to center the modal content vertically and horizontally */}
+        <div className="fixed inset-0">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
+            {/* Transition for the modal panel (scaling and opacity) */}
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -45,9 +51,11 @@ export const GodModal = ({ god }: GodModalProps) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              {/* Modal content panel */}
-              <Dialog.Panel className="w-[60%] max-h-[full] transform overflow-hidden rounded-2xl bg-background-primary p-6 text-left align-middle shadow-xl transition-all border border-gold">
-                {/* Modal title */}
+              {/* Modal panel container with styling */}
+              <Dialog.Panel
+                className="w-[80%] max-h-full transform overflow-hidden rounded-2xl bg-background-primary p-6 text-left align-middle shadow-xl transition-all border border-gold"
+              >
+                {/* Modal title with god's name and bottom border */}
                 <Dialog.Title
                   as="div"
                   className="p-7 text-center border-b border-gold"
@@ -55,46 +63,62 @@ export const GodModal = ({ god }: GodModalProps) => {
                   <h3 className="text-scarlet-red text-4xl">{god.name}</h3>
                 </Dialog.Title>
 
-                {/* Modal content: image and information */}
-                <div className="flex justify-center my-2 gap-5">
-                  {/* Image container */}
-                  <div className="w-3xs h-auto">
-                    <img className="w-full" src={god.image} alt="God Image" />
+                {/* Main content wrapper with fixed height */}
+                <div className="flex justify-center my-2 gap-5 h-[500px]">
+                  {/* Container for god's image */}
+                  <div className="w-80 h-full flex items-stretch">
+                    <img
+                      className="h-full w-auto object-cover rounded-md"
+                      src={god.image}
+                      alt="God Image"
+                    />
                   </div>
 
-                  {/* Text and stats container */}
-                  <div className="flex flex-col space-y-6 w-full text-center">
-                    {/* God stats section */}
+                  {/* Container for textual info and stats
+                      overflow-y-auto allows vertical scrolling if content overflows
+                      pr-2 adds padding so the scrollbar does not overlap content */}
+                  <div className="flex flex-col space-y-6 w-full text-center overflow-y-auto pr-2">
+                    {/* Stats section */}
                     <div className="border-b border-gold py-5">
                       <h2 className="text-gold text-2xl mb-2">Stats</h2>
-
+                      {/* Display each stat using the GodStats component */}
                       <div className="flex gap-3 justify-center px-4">
-                        {/* Individual stats displayed using GodStats component */}
-                        <GodStats stat="Ataque" value={god.attack} />
-                        <GodStats stat="Defensa" value={god.defense} />
-                        <GodStats stat="Velocidad" value={god.speed} />
-                        <GodStats stat="Salud" value={god.health} />
+                        <GodStats stat="Attack" value={god.attack} />
+                        <GodStats stat="Defense" value={god.defense} />
+                        <GodStats stat="Speed" value={god.speed} />
+                        <GodStats stat="Health" value={god.health} />
                         <GodStats stat="Mana" value={god.mana} />
                       </div>
                     </div>
 
-                    {/* Abilities section (to be implemented) */}
+                    {/* Abilities section */}
                     <div className="border-b border-gold">
                       <h2 className="text-gold text-2xl">Abilities</h2>
-
                       <div className="space-y-5 py-5">
+                        {/* List all abilities with GodAttributes component */}
                         {god.abilities.map((ability) => (
-                          <GodAbilities
-                            ability={ability.name}
+                          <GodAttributes
+                            key={ability._id}
+                            attribute={ability.name}
                             description={ability.description}
                           />
                         ))}
                       </div>
                     </div>
 
-                    {/* Items section (to be implemented) */}
+                    {/* Items section */}
                     <div>
                       <h2 className="text-gold text-2xl">Items</h2>
+                      <div className="space-y-5 py-5">
+                        {/* List all items with GodAttributes component */}
+                        {god.items.map((item) => (
+                          <GodAttributes
+                            key={item._id}
+                            attribute={item.name}
+                            description={item.description}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
