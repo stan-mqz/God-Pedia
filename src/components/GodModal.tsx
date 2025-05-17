@@ -3,6 +3,7 @@ import { useGodStore } from "../store";
 import { God } from "../types/types";
 import { Fragment } from "react";
 import { GodStats } from "./GodStats";
+import { GodAbilities } from "./GodAbilities";
 
 type GodModalProps = {
   god: God;
@@ -45,7 +46,7 @@ export const GodModal = ({ god }: GodModalProps) => {
               leaveTo="opacity-0 scale-95"
             >
               {/* Modal content panel */}
-              <Dialog.Panel className="w-[60%] max-h-[600px] transform overflow-hidden rounded-2xl bg-background-primary p-6 text-left align-middle shadow-xl transition-all border border-gold">
+              <Dialog.Panel className="w-[60%] max-h-[full] transform overflow-hidden rounded-2xl bg-background-primary p-6 text-left align-middle shadow-xl transition-all border border-gold">
                 {/* Modal title */}
                 <Dialog.Title
                   as="div"
@@ -55,17 +56,17 @@ export const GodModal = ({ god }: GodModalProps) => {
                 </Dialog.Title>
 
                 {/* Modal content: image and information */}
-                <div className="flex justify-center my-2">
+                <div className="flex justify-center my-2 gap-5">
                   {/* Image container */}
-                  <div className="w-3xs h-full">
+                  <div className="w-3xs h-auto">
                     <img className="w-full" src={god.image} alt="God Image" />
                   </div>
 
                   {/* Text and stats container */}
-                  <div className="w-full text-center">
+                  <div className="flex flex-col space-y-6 w-full text-center">
                     {/* God stats section */}
-                    <div>
-                      <h2 className="text-scarlet-red text-2xl">Stats</h2>
+                    <div className="border-b border-gold py-5">
+                      <h2 className="text-gold text-2xl mb-2">Stats</h2>
 
                       <div className="flex gap-3 justify-center px-4">
                         {/* Individual stats displayed using GodStats component */}
@@ -78,13 +79,22 @@ export const GodModal = ({ god }: GodModalProps) => {
                     </div>
 
                     {/* Abilities section (to be implemented) */}
-                    <div>
-                      <h2 className="text-scarlet-red">Abilities</h2>
+                    <div className="border-b border-gold">
+                      <h2 className="text-gold text-2xl">Abilities</h2>
+
+                      <div className="space-y-5 py-5">
+                        {god.abilities.map((ability) => (
+                          <GodAbilities
+                            ability={ability.name}
+                            description={ability.description}
+                          />
+                        ))}
+                      </div>
                     </div>
 
                     {/* Items section (to be implemented) */}
                     <div>
-                      <h2 className="text-scarlet-red">Items</h2>
+                      <h2 className="text-gold text-2xl">Items</h2>
                     </div>
                   </div>
                 </div>
